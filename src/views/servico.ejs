@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços</title>
+</head>
+<body>
+  <h1>Serviços</h1>
+  <ul>
+    <% servicos.forEach(servico => { %>
+      <li><%= servico.nome %> - R$<%= servico.valor %></li>
+    <% }); %>
+  </ul>
+  <form action="/servicos" method="POST">
+    <input type="text" name="nome" placeholder="Nome do Serviço" required />
+    <input type="number" name="valor" placeholder="Valor" required />
+    <button type="submit">Adicionar Serviço</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda</title>
+</head>
+<body>
+  <h1>Agenda</h1>
+  <ul>
+    <% agendas.forEach(agenda => { %>
+      <li>
+        <b>Descrição:</b> <%= agenda.descricao %>, 
+        <b>Serviço:</b> <%= agenda.servico %>, 
+        <b>Data:</b> <%= agenda.data %>, 
+        <b>Cliente:</b> <%= agenda.cliente %>, 
+        <b>Usuário:</b> <%= agenda.usuario %>, 
+        <b>Funcionário:</b> <%= agenda.funcionario %>, 
+        <b>Status:</b> <%= agenda.status %>
+      </li>
+    <% }); %>
+  </ul>
+  <form action="/agenda" method="POST">
+    <input type="text" name="descricao" placeholder="Descrição" required />
+    <select name="servico" required>
+      <option value="" disabled selected>Selecione o Serviço</option>
+      <% servicos.forEach(servico => { %>
+        <option value="<%= servico.id %>"><%= servico.nome %></option>
+      <% }); %>
+    </select>
+    <input type="date" name="data" required />
+    <select name="cliente" required>
+      <option value="" disabled selected>Selecione o Cliente</option>
+      <% clientes.forEach(cliente => { %>
+        <option value="<%= cliente.id %>"><%= cliente.nome %></option>
+      <% }); %>
+    </select>
+    <select name="usuario" required>
+      <option value="" disabled selected>Selecione o Usuário</option>
+      <% usuarios.forEach(usuario => { %>
+        <option value="<%= usuario.id %>"><%= usuario.username %></option>
+      <% }); %>
+    </select>
+    <select name="funcionario" required>
+      <option value="" disabled selected>Selecione o Funcionário</option>
+      <% funcionarios.forEach(funcionario => { %>
+        <option value="<%= funcionario.id %>"><%= funcionario.nome %></option>
+      <% }); %>
+    </select>
+    <select name="status" required>
+      <option value="" disabled selected>Selecione o Status</option>
+      <option value="Pendente">Pendente</option>
+      <option value="Concluído">Concluído</option>
+      <option value="Cancelado">Cancelado</option>
+    </select>
+    <button type="submit">Adicionar Agenda</button>
+  </form>
+</body>
+</html>
+

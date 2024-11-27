@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funcionários</title>
+</head>
+<body>
+  <h1>Funcionários</h1>
+  <ul>
+    <% funcionarios.forEach(funcionario => { %>
+      <li>
+        <b>Nome:</b> <%= funcionario.nome %>, 
+        <b>Telefone:</b> <%= funcionario.telefone %>, 
+        <b>Email:</b> <%= funcionario.email %>, 
+        <b>Endereço:</b> <%= funcionario.endereco %>, 
+        <b>Salário:</b> R$ <%= funcionario.salario %>
+      </li>
+    <% }); %>
+  </ul>
+  <form action="/funcionarios" method="POST">
+    <input type="text" name="nome" placeholder="Nome" required />
+    <input type="text" name="telefone" placeholder="Telefone" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="text" name="endereco" placeholder="Endereço" required />
+    <input type="number" step="0.01" name="salario" placeholder="Salário" required />
+    <button type="submit">Adicionar Funcionário</button>
+  </form>
+</body>
+</html>

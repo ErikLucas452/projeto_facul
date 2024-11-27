@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários</title>
+</head>
+<body>
+  <h1>Usuários</h1>
+  <ul>
+    <% usuarios.forEach(usuario => { %>
+      <li>
+        <b>Username:</b> <%= usuario.username %>, 
+        <b>Data de Cadastro:</b> <%= usuario.dfCadastro %>, 
+        <b>Tipo de Acesso:</b> <%= usuario.tipoAcesso %>
+      </li>
+    <% }); %>
+  </ul>
+  <form action="/usuarios" method="POST">
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="password" name="senha" placeholder="Senha" required />
+    <input type="date" name="dfCadastro" required />
+    <select name="tipoAcesso" required>
+      <option value="" disabled selected>Selecione o Tipo de Acesso</option>
+      <option value="Admin">Admin</option>
+      <option value="User">User</option>
+    </select>
+    <button type="submit">Adicionar Usuário</button>
+  </form>
+</body>
+</html>

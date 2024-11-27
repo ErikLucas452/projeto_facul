@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endereços</title>
+  <script>
+    // JavaScript to handle the CEP autofill
+    async function fetchCepData() {
+      const cepInput = document.getElementById('cep');
+      const cep = cepInput.value;
+
+      // Validate the CEP input
+      if (!/^\d{8}$/.test(cep)) {
+        alert("Por favor, insira um CEP válido com 8 dígitos.");
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+
+        if (data.erro) {
+          alert("CEP não encontrado.");
+          return;
+        }
+
+        // Fill the remaining fields with the response data
+        document.getElementById('logradouro').value = data.logradouro || '';
+        document.getElementById('cidade').value = data.localidade || '';
+        document.getElementById('estado').value = data.uf || '';
+        document.getElementById('complemento').value = data.complemento || '';
+        document.getElementById('bairro').value = data.bairro || '';
+        document.getElementById('uf').value = data.uf || '';
+
+      } catch (error) {
+        console.error("Erro ao buscar o CEP:", error);
+        alert("Não foi possível buscar os dados do CEP.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Endereços</h1>
+  <ul>
+    <% enderecos.forEach(endereco => { %>
+      <li>
+        <%= endereco.logradouro %>, 
+        <%= endereco.numero %>, 
+        <%= endereco.cidade %>, 
+        <%= endereco.estado %> - 
+        <%= endereco.uf %>, 
+        CEP: <%= endereco.cep %>, 
+        <%= endereco.complemento || "Sem complemento" %>
+      </li>
+    <% }); %>
+  </ul>
+  <form action="/enderecos" method="POST">
+    <input type="text" id="cep" name="cep" placeholder="CEP" maxlength="8" onblur="fetchCepData()" required />
+    <input type="text" id="logradouro" name="logradouro" placeholder="Logradouro" required />
+    <input type="text" id="numero" name="numero" placeholder="Número" required />
+    <input type="text" id="bairro" name="bairro" placeholder="Bairro" />
+    <input type="text" id="cidade" name="cidade" placeholder="Cidade" required />
+    <input type="text" id="estado" name="estado" placeholder="Estado" required />
+    <input type="text" id="uf" name="uf" placeholder="UF" required />
+    <input type="text" id="complemento" name="complemento" placeholder="Complemento" />
+    <button type="submit">Adicionar Endereço</button>
+  </form>
+</body>
+</html>
+
